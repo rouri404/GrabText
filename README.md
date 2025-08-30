@@ -136,7 +136,7 @@ Para remover o GrabText e seus componentes:
   
   Certifique-se de que o comando no seu atalho de teclado seja exatamente este, que inclui a definição do `PATH`:
   
-  `bash -c "export PATH=/usr/bin:/bin:/usr/local/bin:$HOME/.local/bin; flameshot gui --raw | '$HOME/Área de trabalho/GrabText/.venv/bin/python' '$HOME/Área de trabalho/GrabText/grabtext.py'"`
+  `bash -c "export PATH=/usr/bin:/bin:/usr/local/bin:$HOME/.local/bin; flameshot gui --raw | '$HOME/GrabText/.venv/bin/python' '$HOME/Área de trabalho/GrabText/grabtext.py'"`
 </details>
 
 <details>
