@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/badge/status-ativo-success" alt="Status">
   </p>
     <p>
-    OCR instantâneo para qualquer área da sua tela. Um projeto criado para a comunidade Linux.
+    Capture e copie texto de qualquer imagem ou vídeo na sua tela. Uma ferramenta de OCR simples e poderosa para sistemas baseadas em Linux.
   </p>
 </div>
 
@@ -19,8 +19,7 @@
 
 **GrabText** é uma ferramenta de produtividade que agiliza o processo de captura de texto de qualquer lugar da tela. Seja de uma imagem, um vídeo, um documento protegido ou uma página web, basta selecionar a área desejada para que o texto seja reconhecido e copiado para sua área de transferência instantaneamente.
 
-Este projeto foi construído utilizando ferramentas poderosas e flexíveis do ecossistema Linux, como Tesseract e Flameshot.
-
+Utiliza o **Tesseract** para o reconhecimento de caracteres e o **Flameshot** para uma seleção de tela intuitiva.
 ---
 
 ## Pré-requisitos
