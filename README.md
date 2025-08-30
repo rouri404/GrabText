@@ -124,3 +124,35 @@ Para remover o GrabText e seus componentes:
     ```bash
     ./uninstall.sh
     ```
+
+---
+
+## Solução de Problemas (FAQ)
+
+<details>
+  <summary><strong>O atalho com a tecla INSERT não faz nada. O que pode ser?</strong></summary>
+  
+  Este é o problema mais comum e geralmente ocorre porque o ambiente em que os atalhos são executados é mais limitado que o seu terminal. A solução é garantir que o comando no atalho seja "autossuficiente". 
+  
+  Certifique-se de que o comando no seu atalho de teclado seja exatamente este, que inclui a definição do `PATH`:
+  
+  `bash -c "export PATH=/usr/bin:/bin:/usr/local/bin:$HOME/.local/bin; flameshot gui --raw | '$HOME/Área de trabalho/GrabText/.venv/bin/python' '$HOME/Área de trabalho/GrabText/grabtext.py'"`
+</details>
+
+<details>
+  <summary><strong>O OCR não extrai nenhum texto ou o resultado sai incorreto.</strong></summary>
+  
+  A qualidade do OCR depende 99% da qualidade da imagem. Lembre-se das boas práticas:
+  * **Alto Contraste:** Texto escuro sobre fundo claro e sólido funciona melhor.
+  * **Fontes Padrão:** Fontes muito artísticas ou pequenas são difíceis de ler.
+  * **Boa Resolução:** Se o texto na tela estiver pequeno, use o zoom (`Ctrl` + `+`) na aplicação antes de capturar a tela.
+</details>
+
+<details>
+  <summary><strong>A aparência do Flameshot não muda, mesmo depois de editar a configuração.</strong></summary>
+  
+  O Flameshot pode ser teimoso com suas configurações. Tente o seguinte:
+  1.  Feche completamente qualquer instância do Flameshot rodando em segundo plano: `killall flameshot`.
+  2.  Abra o painel de configuração (`flameshot config`), clique em "Reset to defaults", e reconfigure a aparência manualmente.
+  3.  Alternativamente, verifique seu arquivo `~/.config/flameshot/flameshot.ini` e delete a linha que começa com `buttons=@Variant(...)`, pois ela sobrescreve as configurações de botões.
+</details>
