@@ -15,7 +15,7 @@
 
 ## Sobre o Projeto
 
-<img src="preview.gif" width="30%" alt="Preview">
+<img src="preview.gif" width="50%" alt="Preview">
 
 **GrabText** é uma ferramenta de produtividade que agiliza o processo de captura de texto de qualquer lugar da tela. Seja de uma imagem, um vídeo, um documento protegido ou uma página web, basta selecionar a área desejada para que o texto seja reconhecido e copiado para sua área de transferência instantaneamente.
 
