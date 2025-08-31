@@ -62,22 +62,22 @@ Caso o script `install.sh` encontre algum erro, você pode instalar as dependên
 
 #### Para Arch Linux e derivados (Manjaro, EndeavourOS)
 ```bash
-sudo pacman -S flameshot tesseract tesseract-data-por xclip python-pip
+sudo pacman -S flameshot tesseract tesseract-data-por xclip python-pip libnotify
 ```
 
 #### Para Debian, Ubuntu e derivados (Mint, Pop!_OS)
 ```bash
-sudo apt install flameshot tesseract-ocr tesseract-ocr-por xclip python3-pip
+sudo apt install flameshot tesseract-ocr tesseract-ocr-por xclip python3-pip libnotify-bin
 ```
 
 #### Para Fedora
 ```bash
-sudo dnf install flameshot tesseract tesseract-langpack-por xclip python3-pip
+sudo dnf install flameshot tesseract tesseract-langpack-por xclip python3-pip libnotify
 ```
 
 #### Para openSUSE
 ```bash
-sudo zypper install flameshot tesseract-ocr tesseract-ocr-data-por xclip python3-pip
+sudo zypper install flameshot tesseract-ocr tesseract-ocr-data-por xclip python3-pip libnotify-tools
 ```
 Após a instalação manual, continue no passo 2 da seção de **Instalação** abaixo.
 
