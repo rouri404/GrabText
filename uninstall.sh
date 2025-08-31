@@ -21,9 +21,9 @@ if [[ "$response" =~ ^([sS])$ ]]; then
       *gnome*|*cinnamon*)
         KEY_PATH="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
         if gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH name &> /dev/null | grep -q "GrabText"; then
-            gsettings reset org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH name
-            gsettings reset org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH command
-            gsettings reset org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH binding
+            gsettings reset org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH name &> /dev/null
+            gsettings reset org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH command &> /dev/null
+            gsettings reset org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH binding &> /dev/null
             success "Atalho para GNOME/Cinnamon resetado."
         else
             warning "Nenhum atalho do GrabText encontrado para remover automaticamente."
@@ -49,12 +49,25 @@ if [[ "$response" =~ ^([sS])$ ]]; then
     rm -f launch.sh
     success "Ambiente virtual e script de lançamento removidos."
     
+    # 3. Instruções para remoção de pacotes
     warning "\nLembrete: Os pacotes de sistema não são removidos automaticamente."
+    info "Se desejar, remova os pacotes que foram instalados com um dos comandos abaixo:"
+    
+    # Detecta o gerenciador de pacotes e mostra o comando de remoção apropriado
+    if command -v pacman &> /dev/null; then
+        echo -e "${YELLOW}   sudo pacman -Rsn flameshot tesseract tesseract-data-por xclip python-pip libnotify${NC}"
+    elif command -v apt &> /dev/null; then
+        echo -e "${YELLOW}   sudo apt remove --purge flameshot tesseract-ocr tesseract-ocr-por xclip python3-pip libnotify-bin${NC}"
+    elif command -v dnf &> /dev/null; then
+        echo -e "${YELLOW}   sudo dnf remove flameshot tesseract tesseract-langpack-por xclip python3-pip libnotify${NC}"
+    fi
     
     echo ""
     read -p "Deseja apagar a pasta do projeto GrabText agora? [s/N] " del_response
     if [[ "$del_response" =~ ^([sS])$ ]]; then
-        PROJECT_DIR_NAME=${PWD##*/}; cd .. && rm -rf "$PROJECT_DIR_NAME"
+        PROJECT_DIR_NAME=${PWD##*/} 
+        info "Removendo a pasta '$PROJECT_DIR_NAME'..."
+        cd .. && rm -rf "$PROJECT_DIR_NAME"
         success "Pasta do projeto removida."
     fi
     success "\nDesinstalação concluída."
