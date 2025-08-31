@@ -88,7 +88,7 @@ Após a instalação manual, continue no passo 2 da seção de **Instalação** 
 1.  Pressione a tecla `INSERT`.
 2.  A interface de captura aparecerá. Selecione a área da tela com o texto desejado.
 3.  Pressione `Enter` ou clique no ícone de `✓` (Confirmar).
-4.  O texto extraído estará na sua área de transferência, pronto para ser colado com \`Ctrl+V\`.
+4.  O texto extraído estará na sua área de transferência, pronto para ser colado com `Ctrl+V`.
 
 ---
 
