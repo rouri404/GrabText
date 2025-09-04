@@ -11,7 +11,7 @@ warning() { echo -e "${YELLOW}[AVISO]${NC} $1"; }
 
 info "Iniciando a instalação do GrabText..."
 
-# 1. Instalar Dependências do Sistema (com libnotify adicionado)
+# 1. Instalar Dependências do Sistema
 info "Verificando seu sistema e instalando pacotes necessários..."
 if command -v pacman &> /dev/null; then
     sudo pacman -Syu --needed --noconfirm flameshot tesseract tesseract-data-por xclip python-pip libnotify || error "Falha ao instalar pacotes."
@@ -19,6 +19,8 @@ elif command -v apt &> /dev/null; then
     sudo apt update && sudo apt install -y flameshot tesseract-ocr tesseract-ocr-por xclip python3-pip libnotify-bin || error "Falha ao instalar pacotes."
 elif command -v dnf &> /dev/null; then
     sudo dnf install -y flameshot tesseract langpacks-por xclip python3-pip libnotify || error "Falha ao instalar pacotes."
+elif command -v zypper &> /dev/null; then
+    sudo zypper install -y flameshot tesseract-ocr tesseract-ocr-por xclip python3-pip libnotify-tools || error "Falha ao instalar pacotes."
 else
     error "Seu gerenciador de pacotes não é suportado."
 fi
@@ -121,7 +123,7 @@ case "$DESKTOP_ENV" in
     ;;
   *)
     warning "Automação para seu ambiente não é suportada ou é arriscada."
-    info "Por favor, configure o atalho manualmente para a tecla [INSERT] com o comando:"
+    info "Por favor, configure o atalho manually para a tecla [INSERT] com o comando:"
     echo -e "${YELLOW}${COMMAND_FOR_MANUAL_COPY}${NC}"
     ;;
 esac

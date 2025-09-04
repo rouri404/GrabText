@@ -60,6 +60,8 @@ if [[ "$response" =~ ^([sS])$ ]]; then
         echo -e "${YELLOW}   sudo apt remove --purge flameshot tesseract-ocr tesseract-ocr-por xclip python3-pip libnotify-bin${NC}"
     elif command -v dnf &> /dev/null; then
         echo -e "${YELLOW}   sudo dnf remove flameshot tesseract tesseract-langpack-por xclip python3-pip libnotify${NC}"
+    elif command -v zypper &> /dev/null; then
+        echo -e "${YELLOW}   sudo zypper remove flameshot tesseract-ocr tesseract-ocr-por xclip python3-pip libnotify-tools${NC}"
     fi
     
     echo ""
