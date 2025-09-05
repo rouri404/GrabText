@@ -61,7 +61,7 @@ SCRIPT_DIR=\$( cd -- "\$( dirname -- "\${BASH_SOURCE[0]}" )" &> /dev/null && pwd
 PYTHON_EXEC="\$SCRIPT_DIR/.venv/bin/python"
 GRABTEXT_SCRIPT="\$SCRIPT_DIR/grabtext.py"
 export PATH=/usr/bin:/bin:/usr/local/bin:\$HOME/.local/bin
-export GRABTEXT_LANG="${DETECTED_LANG:-pt}" # Pass detected or default language to Python script
+export GRABTEXT_LANG="${DETECTED_LANG:-pt}"
 if [ ! -f "\$PYTHON_EXEC" ] || [ ! -f "\$GRABTEXT_SCRIPT" ]; then
     notify-send "GrabText Error" "$MSG_LAUNCH_ERROR_FILES_NOT_FOUND"
     exit 1
@@ -96,41 +96,33 @@ EXEC_COMMAND_FOR_AUTOMATION="$PWD/launch.sh"
 EXEC_COMMAND_FOR_AUTOMATION_ESCAPED=$(escape_path_with_single_quotes "$EXEC_COMMAND_FOR_AUTOMATION")
 COMMAND_FOR_MANUAL_COPY="$EXEC_COMMAND_FOR_AUTOMATION_ESCAPED"
 
-if [ -n "$XDG_CURRENT_DESKTOP" ]; then DESKTOP_ENV="$XDG_CURRENT_DESKTOP"; elif [ -n "$GDMSESSION" ]; then DESKTOP_ENV="$GDMSESSION"; else DESKTOP_ENV="$DESKTOP_SESSION"; fi
-DESKTOP_ENV=$(echo "$DESKTOP_ENV" | tr '[:upper:]' '[:lower:]')
-info "$MSG_DETECTED_DESKTOP ${DESKTOP_ENV:-$MSG_NOT_DETECTED}"
+SESSION_INFO=$(echo ":$XDG_CURRENT_DESKTOP:$GDMSESSION:$DESKTOP_SESSION:" | tr '[:upper:]' '[:lower:]')
+info "$MSG_DETECTED_DESKTOP ${XDG_CURRENT_DESKTOP:-$MSG_NOT_DETECTED}"
 
-case "$DESKTOP_ENV" in
-  *gnome*|*cinnamon*)
+case "$SESSION_INFO" in
+  *:gnome*|*:cinnamon*)
     info "$MSG_ATTEMPT_GNOME_SHORTCUT"
     KEY_PATH="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
 
-    CURRENT_KEYBINDINGS=$(gsettings get org.gnome.settings-daemon.plugins.media-keys custom-keybindings 2>/dev/null)
-    if [[ "$CURRENT_KEYBINDINGS" == *"custom0"* ]]; then
-        gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH name 'GrabText' &>/dev/null
-        gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH command "$EXEC_COMMAND_FOR_AUTOMATION_ESCAPED" &>/dev/null
-        gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH binding 'Insert' &>/dev/null
-    else
-        if [ -z "$CURRENT_KEYBINDINGS" ] || [ "$CURRENT_KEYBINDINGS" == "@as []" ]; then
-            gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$KEY_PATH']" &>/dev/null
-        else
-            gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "$(echo "$CURRENT_KEYBINDINGS" | sed "s/\[/\['$KEY_PATH', /")" &>/dev/null
-        fi
-        gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH name 'GrabText' &>/dev/null
-        gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH command "$EXEC_COMMAND_FOR_AUTOMATION_ESCAPED" &>/dev/null
-        gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH binding 'Insert' &>/dev/null
-    fi
+    gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "['$KEY_PATH']" &> /dev/null
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH name 'GrabText' &> /dev/null
+    gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH command "$EXEC_COMMAND_FOR_AUTOMATION_ESCAPED" &> /dev/null
 
-    if gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH command &> /dev/null | grep -q "$EXEC_COMMAND_FOR_AUTOMATION"; then
+    SET_BINDING_OUTPUT=$(gsettings set org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH binding 'Insert' 2>&1)
+    EXIT_CODE=$?
+
+    if [ $EXIT_CODE -eq 0 ]; then
+        sleep 1
         success "$MSG_SHORTCUT_SUCCESS"
     else
         warning "$MSG_AUTO_SHORTCUT_FAIL_GENERIC"
-        gsettings get org.gnome.settings-daemon.plugins.media-keys.custom-keybinding:$KEY_PATH name # This will output the error if any
+        echo -e "${RED}$SET_BINDING_OUTPUT${NC}"
         info "\n$MSG_MANUAL_SHORTCUT_PROMPT"
         echo -e "${YELLOW}${COMMAND_FOR_MANUAL_COPY}${NC}"
     fi
+
     ;;
-  *xfce*)
+  *:xfce*)
     info "$MSG_ATTEMPT_XFCE_SHORTCUT"
     if xfconf-query -c xfce4-keyboard-shortcuts -p /commands/custom/Insert -n -t string -s "$EXEC_COMMAND_FOR_AUTOMATION" ; then
         success "$MSG_SHORTCUT_SUCCESS"

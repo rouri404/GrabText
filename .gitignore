@@ -10,3 +10,4 @@ venv/
 *.swo
 *.tmp
 launch.sh
+grabtext.log
