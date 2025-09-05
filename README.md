@@ -1,164 +1,201 @@
 <div align="center">
   <h1>GrabText</h1>
   <p>
-    <img src="https://img.shields.io/badge/version-1.1.1-blue" alt="Version">
+    <img src="https://img.shields.io/badge/version-1.2.0-blue" alt="Version">
     <img src="https://img.shields.io/badge/Platform-Linux-lightgrey" alt="Platform">
     <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
-    <img src="https://img.shields.io/badge/status-ativo-success" alt="Status">
+    <img src="https://img.shields.io/badge/status-active-success" alt="Status">
+    <a href="README.pt.md"><img src="https://img.shields.io/badge/Language-Português%20%F0%9F%87%A7%F0%9F%87%B7-blue" alt="Português"></a>
   </p>
     <p>
-    Capture e copie texto de qualquer imagem ou vídeo na sua tela. Uma ferramenta de OCR simples e poderosa para sistemas baseadas em Linux.
+    Capture and copy text from any image or video on your screen. A simple yet powerful OCR tool for Linux-based systems.
   </p>
 </div>
 
 ---
 
-## Sobre o Projeto
+## About the Project
 
 <div align="center">
   <img src="preview.gif" width="70%" alt="Preview">
 </div>
 
-**GrabText** é uma ferramenta de produtividade que agiliza o processo de captura de texto de qualquer lugar da tela. Seja de uma imagem, um vídeo, um documento protegido ou uma página web, basta selecionar a área desejada para que o texto seja reconhecido e copiado para sua área de transferência instantaneamente.
+**GrabText** is a productivity tool that streamlines the process of capturing text from anywhere on your screen. Whether it's from an image, a video, a protected document, or a web page, simply select the desired area, and the text will be recognized and copied to your clipboard instantly.
 
-Utiliza o **Tesseract** para o reconhecimento de caracteres e o **Flameshot** para uma seleção de tela intuitiva.
-
----
-
-## Compatibilidade
-
-Este projeto foi desenvolvido e testado para funcionar nos principais ambientes de desktop Linux. A automação de atalhos é mais eficaz nos seguintes ambientes:
-
-* **Ambientes com Suporte Ideal:** GNOME, XFCE
-* **Ambientes com Suporte Guiado:** KDE Plasma
-* **Distribuições Suportadas:** Qualquer distribuição baseada em `apt` (Debian, Ubuntu), `pacman` (Arch Linux), `dnf` (Fedora), ou `zypper` (openSUSE).
+It utilizes **Tesseract** for character recognition and **Flameshot** for intuitive screen selection.
 
 ---
 
-## Instalação
+## Features
 
-1.  **Clone este repositório:**
+*   **Multilingual OCR:** Robust support for text recognition in English (`en`) and Portuguese (`pt`).
+*   **Intuitive Screen Capture:** Use the Flameshot interface to easily select the desired screen area.
+*   **Instant Copy:** Recognized text is automatically copied to the clipboard.
+*   **Flexible Configuration:** Switch the OCR language using an environment variable, as needed.
+*   **Activity Logging:** Detailed logs are generated to facilitate debugging.
+
+---
+
+## Compatibility
+
+This project was developed and tested to work on major Linux desktop environments. Shortcut automation is most effective in the following environments:
+
+*   **Ideal Support Environments:** GNOME, XFCE
+*   **Guided Support Environments:** KDE Plasma
+*   **Supported Distributions:** Any `apt`-based (Debian, Ubuntu), `pacman`-based (Arch Linux), `dnf`-based (Fedora), or `zypper`-based (openSUSE) distribution.
+
+---
+
+## Installation
+
+1.  **Clone this repository:**
     ```bash
     git clone https://github.com/rouri404/GrabText.git
     cd GrabText
     ```
 
-2.  **Torne o script de instalação executável:**
+2.  **Make the installation script executable:**
     ```bash
     chmod +x install.sh
     ```
 
-3.  **Execute o instalador:**
+3.  **Run the installer:**
     ```bash
     ./install.sh
     ```
-    O script irá pedir sua senha para instalar os pacotes de sistema (se ainda não estiverem instalados) e irá configurar o restante do ambiente.
+    The script will ask for your password to install system packages (if not already installed) and configure the rest of the environment.
 
 ---
 
-## Instalação Manual e Pré-requisitos
+## Manual Installation and Prerequisites
 
-Caso o script `install.sh` encontre algum erro, você pode instalar as dependências manualmente com os seguintes comandos:
+If the `install.sh` script encounters any errors, you can manually install the dependencies with the following commands:
 
-#### Para Arch Linux e derivados (Manjaro, EndeavourOS)
+#### For Arch Linux and derivatives (Manjaro, EndeavourOS)
 ```bash
-sudo pacman -S flameshot tesseract tesseract-data-por xclip python-pip libnotify
+sudo pacman -S flameshot tesseract tesseract-data-por tesseract-data-eng xclip python-pip libnotify
 ```
 
-#### Para Debian, Ubuntu e derivados (Mint, Pop!_OS)
+#### For Debian, Ubuntu, and derivatives (Mint, Pop!_OS)
 ```bash
-sudo apt install flameshot tesseract-ocr tesseract-ocr-por xclip python3-pip libnotify-bin
+sudo apt install flameshot tesseract-ocr tesseract-ocr-por tesseract-ocr-eng xclip python3-pip libnotify-bin
 ```
 
-#### Para Fedora
+#### For Fedora
 ```bash
-sudo dnf install flameshot tesseract tesseract-langpack-por xclip python3-pip libnotify
+sudo dnf install flameshot tesseract tesseract-langpack-por langpacks-eng xclip python3-pip libnotify
 ```
 
-#### Para openSUSE
+#### For openSUSE
 ```bash
-sudo zypper install flameshot tesseract-ocr tesseract-ocr-data-por xclip python3-pip libnotify-tools
+sudo zypper install flameshot tesseract-ocr tesseract-ocr-data-por tesseract-ocr-eng xclip python3-pip libnotify-tools
 ```
-Após a instalação manual, continue no passo 2 da seção de **Instalação** abaixo.
+After manual installation, continue with step 2 in the **Installation** section above.
 
 ---
 
-## Como Usar
+## How to Use
 
-1.  Pressione a tecla `INSERT`.
-2.  A interface de captura aparecerá. Selecione a área da tela com o texto desejado.
-3.  Pressione `Enter` ou clique no ícone de `✓` (Confirmar).
-4.  O texto extraído estará na sua área de transferência, pronto para ser colado com `Ctrl+V`.
+1.  Press the `INSERT` key.
+2.  The capture interface will appear. Select the desired area of the screen with the text.
+3.  Press `Enter` or click the `✓` (Confirm) icon.
+4.  The extracted text will be in your clipboard, ready to be pasted with `Ctrl+V`.
+
+### Forcing OCR Language
+
+You can force the OCR language (between English `en` and Portuguese `pt`) using the `GRABTEXT_LANG` environment variable.
+
+*   **For a single execution:**
+    ```bash
+    GRABTEXT_LANG=en ./launch.sh
+    ```
+    or
+    ```bash
+    GRABTEXT_LANG=pt ./launch.sh
+    ```
+
+*   **To set permanently (e.g., in .bashrc or .zshrc):**
+    Add the line below to the end of your shell configuration file (e.g., `~/.bashrc`):
+    ```bash
+    export GRABTEXT_LANG=en
+    ```
+    After editing the file, run `source ~/.bashrc` (or the corresponding file) to apply the change immediately.
 
 ---
 
-## Solução de Problemas e FAQ
+## Troubleshooting and FAQ
 
 <details>
-  <summary><strong>O atalho não foi criado automaticamente. Como configuro manualmente?</strong></summary>
+  <summary><strong>The shortcut was not created automatically. How do I configure it manually?</strong></summary>
   
-  Se a automação falhou ou foi pulada, você pode configurar o atalho manualmente em poucos passos. O comando que você precisará usar é o caminho absoluto para o script `launch.sh`, que o instalador criou para você.
+  If automation failed or was skipped, you can configure the shortcut manually in a few steps. The command you'll need to use is the absolute path to the `launch.sh` script, which the installer created for you.
   
-  **Exemplo do Comando:** `/home/seu-usuario/'Área de trabalho'/GrabText/launch.sh`
+  **Example Command:** `/home/your-user/'Desktop'/GrabText/launch.sh`
 
-  Siga o guia correspondente ao seu ambiente de trabalho:
+  Follow the guide corresponding to your desktop environment:
 
-  #### Para GNOME (Ubuntu, Fedora)
-  1.  Abra **Configurações** > **Teclado** > **Atalhos de Teclado**.
-  2.  Role até **Atalhos Personalizados** e clique no `+`.
-  3.  Preencha os campos:
-      * **Nome:** `GrabText`
-      * **Comando:** Insira o caminho completo para o arquivo `launch.sh`.
-      * **Atalho:** Pressione a tecla `INSERT`.
-  4.  Clique em "Adicionar".
+  #### For GNOME (Ubuntu, Fedora)
+  1.  Open **Settings** > **Keyboard** > **Keyboard Shortcuts**.
+  2.  Scroll to **Custom Shortcuts** and click the `+`.
+  3.  Fill in the fields:
+      * **Name:** `GrabText`
+      * **Command:** Enter the full path to the `launch.sh` file.
+      * **Shortcut:** Press the `INSERT` key.
+  4.  Click "Add".
 
-  #### Para KDE Plasma
-  1.  Abra **Configurações do Sistema** > **Atalhos** > **Atalhos Personalizados**.
-  2.  Vá em `Editar` > `Novo` > `Atalho Global` > `Comando/URL`.
-  3.  Preencha os campos:
-      * **Nome:** `GrabText`
-      * Aba **Gatilho**: Pressione a tecla `INSERT`.
-      * Aba **Ação**: No campo "Comando/URL", insira o caminho completo para o `launch.sh`.
-  4.  Clique em "Aplicar".
+  #### For KDE Plasma
+  1.  Open **System Settings** > **Shortcuts** > **Custom Shortcuts**.
+  2.  Go to `Edit` > `New` > `Global Shortcut` > `Command/URL`.
+  3.  Fill in the fields:
+      * **Name:** `GrabText`
+      * **Trigger** tab: Press the `INSERT` key.
+      * **Action** tab: In the "Command/URL" field, enter the full path to `launch.sh`.
+  4.  Click "Apply".
 
-  #### Para XFCE
-  1.  Vá para **Configurações** > **Teclado** > **Atalhos de aplicativos**.
-  2.  Clique em **"Adicionar"**.
-  3.  No campo "Comando", insira o caminho completo para o `launch.sh`.
-  4.  Quando o sistema pedir a tecla, pressione `INSERT`.
+  #### For XFCE
+  1.  Go to **Settings** > **Keyboard** > **Application Shortcuts**.
+  2.  Click **"Add"**.
+  3.  In the "Command" field, enter the full path to `launch.sh`.
+  4.  When the system asks for the key, press `INSERT`.
 </details>
 
 <details>
-  <summary><strong>O OCR não extrai nenhum texto ou o resultado sai incorreto.</strong></summary>
+  <summary><strong>OCR does not extract any text or the result is incorrect.</strong></summary>
   
-  A qualidade do OCR depende 99% da qualidade da imagem. Lembre-se das boas práticas:
-  * **Alto Contraste:** Texto escuro sobre fundo claro e sólido funciona melhor.
-  * **Fontes Padrão:** Fontes muito artísticas ou pequenas são difíceis de ler.
-  * **Boa Resolução:** Se o texto na tela estiver pequeno, use o zoom (`Ctrl` + `+`) na aplicação antes de capturar a tela.
+  OCR quality depends 99% on image quality. Remember best practices:
+  * **High Contrast:** Dark text on a light, solid background works best.
+  * **Standard Fonts:** Very artistic or small fonts are difficult to read.
+  * **Good Resolution:** If the text on the screen is small, use zoom (`Ctrl` + `+`) in the application before capturing the screen.
 </details>
 
 <details>
-  <summary><strong>Como posso personalizar a aparência da interface de captura?</strong></summary>
+  <summary><strong>How can I customize the appearance of the capture interface?</strong></summary>
   
-  A aparência da interface é controlada pelo Flameshot. Para personalizar cores, botões e opacidade, execute o seguinte comando no terminal:
+  The interface appearance is controlled by Flameshot. To customize colors, buttons, and opacity, run the following command in the terminal:
   ```bash
   flameshot config
   ```
-  O `install.sh` já aplica uma configuração inicial minimalista, mas você pode ajustá-la como preferir através desse painel. Se a aparência não mudar após a edição, tente fechar completamente o Flameshot com `killall flameshot` e acionar o atalho novamente.
+  The `install.sh` already applies a minimalist initial configuration, but you can adjust it as you prefer through this panel. If the appearance doesn't change after editing, try completely closing Flameshot with `killall flameshot` and triggering the shortcut again.
+</details>
+
+<details>
+  <summary><strong>Where can I find logs for debugging?</strong></summary>
+  
+  GrabText now generates a log file named `grabtext.log` in the project directory. This log is always in English and has a clean, structured format, which facilitates the identification and debugging of any issues that may arise during the tool's execution. You can consult it for detailed information about the OCR process and other operations.
 </details>
 
 ---
 
-## Desinstalação
+## Uninstallation
 
-Para remover o GrabText e seus componentes:
+To remove GrabText and its components:
 
-1.  Navegue até a pasta do projeto.
-2.  Torne o desinstalador executável:
+1.  Navigate to the project folder.
+2.  Make the uninstaller executable:
     ```bash
     chmod +x uninstall.sh
     ```
-3.  Execute o script e siga as instruções:
+3.  Run the script and follow the instructions:
     ```bash
     ./uninstall.sh
     ```
